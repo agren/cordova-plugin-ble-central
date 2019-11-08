@@ -195,6 +195,16 @@ public class Peripheral extends BluetoothGattCallback {
         }
     }
 
+    public boolean requestConnectionPriority(int connectionPriority) {
+        if (gatt != null) {
+            LOG.d(TAG, "requestConnectionPriority connectionPriority=%d", connectionPriority);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                return gatt.requestConnectionPriority(connectionPriority);
+            }
+        }
+        return false;
+    }
+
     /**
      * Uses reflection to refresh the device cache. This *might* be helpful if a peripheral changes
      * services or characteristics and does not correctly implement Service Changed 0x2a05
